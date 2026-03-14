@@ -1,8 +1,26 @@
 import discord
 from discord.ext import commands, tasks
 from datetime import time
+import os
+from flask import Flask
+from threading import Thread
 
-Token = 'MTQ4MjMyNTY4MjE3NTQ3NTg3Mw.GTBGKO.vWZ_uXGsQx0KVRuValhXT_saig831RZFa-Vl60'
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is alive!"
+
+def run():
+    # Render automatycznie przypisuje port, musimy go odczytać
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+Token = os.getenv('DISCORD_TOKEN')
 Channel_id = 1482327396194713674 #1482330205250125958
 
 
@@ -44,4 +62,7 @@ async def ping(ctx):
     await ctx.send(f'Pong! Opóźnienie: {latency}ms')
 
 
-bot.run(Token)
+
+if __name__ == "__main__":
+    keep_alive()  
+    bot.run(Token) 
