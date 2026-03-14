@@ -21,7 +21,7 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 Token = os.getenv('DISCORD_TOKEN')
-Channel_id = 1482327396194713674 #1482330205250125958
+Channel_id = 1482330205250125958
 
 
 
