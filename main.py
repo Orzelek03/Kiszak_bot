@@ -41,9 +41,15 @@ async def menel_przypomnienie():
         return
 
 @menel_przypomnienie.before_loop
-async def before_msg():
-    print('Czekam...')
-    await bot.wait_until_ready()
+async def menel_przypomnienie():
+    try:
+        channel = bot.get_channel(Channel_id)
+        if channel:
+            await channel.send("Przypominajka...")
+            print("Wysłano!")
+    except Exception as e:
+        print(f"Błąd w pętli: {e}")
+        # Bot spróbuje ponownie przy następnej godzinie zamiast się wyłączyć
 
 @bot.event
 async def on_ready():
